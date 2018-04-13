@@ -1,0 +1,50 @@
+extends layout
+
+block content
+    h1= title
+    p Welcome to #{title}
+
+    div(id='tab')
+        button(class='tablinks' onclick='changeTab(event, View)' id='defaultOpen') View
+        button(class='tablinks' onclick='changeTab(event, Add)') Add
+        div(id='View' class='tabcontent')
+            div(class='sortButtons')
+                button(id='previous-sort') Previous
+                p(id='sort-text') sorter
+                button(id='next-sort') Next
+            br
+            div(class='category-buttons')
+            div(class='container')
+                each val in file
+                    div pic
+                        h1(innerText=val.title)
+                        img(src=val.thumbnail)
+            br
+            div(id='modal' class='modal')
+                span(class='close')
+                h2(id='modal-header') Modal header
+                div(id='modal-content')
+                    img(id='modal-image', src='foo.bar')
+                    div(id='modal-map')
+                button(id='close-button') Close
+
+        div(id='Add' class='tabcontent')
+            h3 New image
+            //form(id="picForm")
+            //    div(class="form-group")
+            //        input(type="text" class="form-control" id="category" name="category" placeholder="Enter category")
+            //    div(class="form-group")
+            //        input(type="text" class="form-control" id="title" name="title" placeholder="Enter title")
+            //    div(class="form-group")
+            //        extarea(class="form-control" id="details" name="details" rows="3")
+            //    div(class="form-group")
+            //        input(type="hidden" name="coordinates" value='{"lat": 60.2196781, "lng": 24.8079786}')
+            //    div(class="form-group")
+            //        input(type="file" class="form-control-file" id="image" aria-describedby="imageHelp")
+            //    small(id="imageHelp" class="form-text text-muted") Add image
+            //    button(type="submit" class="btn btn-primary")Submit
+
+
+    script(src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBTjil-F5qYUEeuhIWQ6zty8sOoICT5AgU&callback=initMap" async
+    defer)
+    script(src='javascripts/myscript.js')
