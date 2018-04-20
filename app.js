@@ -1,3 +1,4 @@
+'use strict';
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -18,6 +19,68 @@ const http = require('http');
 const sslkey = fs.readFileSync('ssl-key.pem');
 const sslcert = fs.readFileSync('ssl-cert.pem');
 
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('express-session');
+
+
+passport.use(new LocalStrategy(
+    (username, password, done) => {
+      User.findOne({ username: username }, (err, user) => {
+        if (err) { return done(err); }
+        if (!user) {
+          return done(null, false, { message: 'Incorrect username.' });
+        }
+        if (!user.validPassword(password)) {
+          return done(null, false, { message: 'Incorrect password.' });
+        }
+        return done(null, user);
+      });
+    }
+));
+
+passport.serializeUser((user,cb)=>{
+  cb(null, user.id);
+});
+
+passport.deserializeUser(function(id, cb) {
+  db.users.findById(id, function (err, user) {
+    if (err) { return cb(err); }
+    cb(null, user);
+  });
+});
+
+app.use(session({
+  secret: 'kanada',
+  resave: true,
+  saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('/login',
+    function(req, res){
+      res.redirect('/');
+    });
+
+app.post('/login',
+    passport.authenticate('local', { failureRedirect: '/index' }),
+    function(req, res) {
+      res.redirect('/');
+    });
+
+app.get('/logout',
+    function(req, res){
+      req.logout();
+      res.redirect('/');
+    });
+
+app.get('/profile',
+    require('connect-ensure-login').ensureLoggedIn(),
+    function(req, res){
+      res.render('profile', { user: req.user });
+    });
 
 const helmet = require('helmet');
 app.use(helmet());
@@ -93,3 +156,4 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 app.set('Pic',Pic);
+//app.set('passport', passport);

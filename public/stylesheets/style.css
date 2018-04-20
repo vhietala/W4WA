@@ -45,7 +45,7 @@ html, body {
   border-top: none;
 }
 
-.kitten {
+.picpreview {
   float: left;
   width: 350px;
   padding: 10px;
@@ -59,7 +59,7 @@ html, body {
   padding: 10px 50px;
 }
 
-.modal {
+#modal {
   padding: 50px 20px;
   display: none;
   position: fixed;
@@ -85,7 +85,7 @@ html, body {
   width: 100%;
 }
 
-.close {
+#close {
   color: black;
   float: left;
   font-size: 28px;

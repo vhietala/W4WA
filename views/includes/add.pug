@@ -1,5 +1,22 @@
-form(method=post, action='/file')
-    input(type='text')
-    input(type='date')
-    input(type='file')
-    button(type='submit') Submit
+form(id="picForm")
+    div(class="form-group")
+        label(for="category") Category
+        br
+        input(type="text" class="form-control" id="category" name="category" placeholder="Enter category")
+    div(class="form-group")
+        label(for="title") Title
+        br
+        input(type="text" class="form-control" id="title" name="title" placeholder="Enter title")
+    div(class="form-group")
+        label(for="details") Details
+        br
+        textarea(class="form-control" id="details" name="details" rows="3")
+    div(class="form-group")
+        input(type="hidden" name="coordinates" value='{"lat": 60.2196781, "lng": 24.8079786}')
+    div(class="form-group")
+        label(for="file") Image
+        br
+        input(type="file" class="form-control-file" id="file" aria-describedby="imageHelp" )
+        small(id="imageHelp" class="form-text text-muted") Add image
+        br
+    button(type='submit' class="btn btn-primary") Submit

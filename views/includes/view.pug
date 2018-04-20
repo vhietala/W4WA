@@ -1,1 +1,18 @@
-mixin item(title)
+//div(class='sortButtons')
+//    button(id='previous-sort') Previous
+//    p(id='sort-text') sorter
+//    button(id='next-sort') Next
+//br
+//div(class='category-buttons')
+div(class='container')
+    each val in file
+        .picpreview
+            h1= val.title
+            br
+            img(src=val.thumbnail)
+            br
+            p= val.details
+            br
+            button( onclick="openmodal('" + val.id + "')") open
+            button( onclick="deleteFile('" + val.id + "')") delete
+br
