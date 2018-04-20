@@ -61,3 +61,11 @@ typings/
 ssl-cert.pem
 ssl-key.pem
 certrequest.csr
+
+# webstorm stuff
+.idea
+
+# user files
+img/
+thumb/
+original/
